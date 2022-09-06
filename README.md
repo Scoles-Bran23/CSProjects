@@ -9,4 +9,4 @@ List
 - welcome
 - hi
 
-[https://github.com/Scoles-Bran23](github acc)
+[https://github.com/Scoles-Bran23] (github acc)
