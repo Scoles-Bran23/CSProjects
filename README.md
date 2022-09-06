@@ -1,4 +1,3 @@
-theme: minima
 # CSProjects
 
 I was here. Who am I?
