@@ -30,4 +30,5 @@ function draw(){
   stroke(0);
   strokeWeight(w/8);
   ellipse(width/2, width/2, w/4, w/4);
+
 }
