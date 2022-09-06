@@ -1,0 +1,18 @@
+h1 {
+
+}
+h2 {
+  /* comment */
+  background-color: Gold;
+  font-size: 2em;
+}
+
+p {
+  color: #474e59;
+  border: 4mm ridge rgba(103, 191, 185, .6);
+}
+
+p.special {
+  font-size: 1.2 em;
+  color: #474e59;
+}
