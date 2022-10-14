@@ -2,7 +2,7 @@ class Particle {
   PVector position, velocity, acceleration;
   float topSpeed, radius, mass;
   float angle, angleVel, angleAcc;
-  float r, b, g, lifeSpan;
+  float r, b, g, lifeSpan, c;
 
 
 
@@ -19,6 +19,7 @@ class Particle {
     b=blue;
     g=green;
     lifeSpan=255;
+    c = (red+blue+green)/3;
   }
 
   boolean death() {
@@ -41,11 +42,11 @@ class Particle {
   //applyGravity Function
   void applyGravity() {
     //add the gravity vector to acceleration
-    acceleration.add(0,0.05);
+    acceleration.add(0,-0.05);
   }
 
   void update() {
-    lifeSpan-=2;
+    lifeSpan-=3;
     angleAcc = acceleration.x/10;
     angleVel += angleAcc;
     angle += angleVel;
@@ -60,6 +61,7 @@ class Particle {
     acceleration.mult(0);
   }
 
+/*
   void checkEdgesWrap() {
     if (position.x > width + radius) {
       position.x = 0 - radius;
@@ -73,7 +75,9 @@ class Particle {
       position.y = height + radius;
     }
   }
-
+  
+*/
+/*
   void checkEdgesBounce() {
     if (position.x > width) {
       position.x = width;
@@ -91,10 +95,11 @@ class Particle {
       velocity.y*=-1;
     }
   }
-
+*/
   void display() {
     noStroke();
-    tint(r,b,g,lifeSpan);
+    //tint(r,b,g,lifeSpan);
+    tint(c, lifeSpan);
     image(light, position.x,position.y);
   }
 

@@ -13,7 +13,7 @@ class particleSystem {
   }
   void run() {
     for (int i=0; i<5; i++) {
-        Particle p = new Particle(new PVector(position.x, position.y), new PVector (random(-1,1), 0), r,b,g);
+        Particle p = new Particle(new PVector(position.x, position.y), new PVector (random(-3,3), random(-3, 3)), r,b,g);
         particles.add(p);
     }
     position.add(0,0);

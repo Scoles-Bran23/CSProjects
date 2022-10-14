@@ -8,7 +8,7 @@ void setup() {
   systems = new ArrayList <particleSystem>();
   light = loadImage("light.png");
   imageMode(CENTER);
-  light.resize(30,30);
+  light.resize(50,50);
 }
 
 
@@ -20,7 +20,14 @@ void draw() {
   for (particleSystem s : systems) {
 
     s.run();
+    
   }
+  /*
+  for (int i= systems.size()-1; i > -1; i--){
+    particleSystem s = systems.get(i);
+
+  }*/
+  
 }
 void mouseClicked() {
   particleSystem s = new particleSystem(mouseX, mouseY);
