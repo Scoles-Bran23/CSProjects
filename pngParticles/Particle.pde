@@ -42,11 +42,11 @@ class Particle {
   //applyGravity Function
   void applyGravity() {
     //add the gravity vector to acceleration
-    acceleration.add(0,-0.05);
+    acceleration.add(0,-0.001);
   }
 
   void update() {
-    lifeSpan-=3;
+    lifeSpan-=1;
     angleAcc = acceleration.x/10;
     angleVel += angleAcc;
     angle += angleVel;

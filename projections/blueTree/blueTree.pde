@@ -1,6 +1,7 @@
 import processing.sound.*;
 
 SoundFile soundFile;
+AudioIn mic;
 FFT fft;
 int sampleCount = 100;
 int bandCount = 512;
@@ -10,13 +11,14 @@ ArrayList<Tree> trees;
 void setup(){
   fullScreen();
   background(0);
- 
-  soundFile = new SoundFile(this, "olivia.mp3");
-  soundFile.play();
+  mic = new AudioIn(this, 0);
+  mic.start();
+  //soundFile = new SoundFile(this, "olivia.mp3");
+  //soundFile.play();
   
   fft = new FFT(this, bandCount);
-  fft.input(soundFile);
-
+  //fft.input(soundFile);
+  fft.input(mic);
   
   trees = new ArrayList<Tree>();
   for(int i = 0; i < 1; i++){
@@ -50,9 +52,14 @@ void drawRect(float w, float h, float a, int drawSet, int level){
    //map(tempA, 0, beat(), (noise(millis()) * 6)+6, (noise(millis()) * 4)+10);
    frameRate(10);
    float tempA = 5;
-   if(isBeat()){
+   if(isMicBeat()){
      tempA = (noise(millis()) * 3)+0;
-
+     if(drawSet < 4){
+       drawSet++;
+     }
+     else{
+       drawSet = 0;
+     }
    }
    else{
     tempA = (noise(millis()) * 3)+10;
@@ -107,10 +114,24 @@ void drawRect(float w, float h, float a, int drawSet, int level){
 
 }
 
-boolean isBeat(){
+boolean isSongBeat(){
   fft.analyze(spectrum);
   float low = getTotalLevel(spectrum, 0, 5); //greater than 1
+  println(low);
   if(low > 1){
+    return true;
+  }
+  else{
+    return false;
+  }
+
+}
+
+boolean isMicBeat(){
+  fft.analyze(spectrum);
+  float high = getTotalLevel(spectrum, 50, bandCount); //greater than 1
+  println(high);
+  if(high > 0.13){
     return true;
   }
   else{

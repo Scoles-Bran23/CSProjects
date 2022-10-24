@@ -1,7 +1,7 @@
 class Tree{
   float x, y, w, h, a;
   int level, tempLevel, rate;
-  int drawSet = 4;
+  int drawSet = 0;
   Tree(float x, float y, float w, float h, float a, int level, int rate){
     this.w = w;
     this.h = h;
@@ -12,7 +12,14 @@ class Tree{
     this.x = x;
     this.y = y; 
   }
-  
+  void switchColor(){
+    if(drawSet < 4){
+      drawSet++;
+    }
+    else{
+      drawSet = 0;
+    }
+  }
   void display(){
     pushMatrix();
     translate(x, y);
