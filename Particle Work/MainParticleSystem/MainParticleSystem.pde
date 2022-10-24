@@ -9,7 +9,7 @@ void setup(){
   q = new Particle(pIn);
 
 }
-//hey katie hows life?
+
 void draw(){
   p.run();
   q.run();
