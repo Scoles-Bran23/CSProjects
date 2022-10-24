@@ -29,13 +29,13 @@ void draw() {
   for (int i= systems.size()-1; i > -1; i--){
     particleSystem s = systems.get(i);
     //println("size of particles: " + s.particles.size());
-    if(s.particles.size() == 100){
+    if(s.dead()){
       systems.remove(s);
     }
   }
-  
+   println(systems.size()); 
 }
-void mouseClicked() {
-  particleSystem s = new particleSystem(mouseX, mouseY);
+void keyPressed() {
+  particleSystem s = new particleSystem(random(width), random(height));
   systems.add(s);
 }

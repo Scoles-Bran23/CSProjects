@@ -122,7 +122,7 @@ class Particle {
     //add velocity to position
     position.add(velocity);
     //reset acceleration to zero
-    acceleration.mult(0.9);
+    acceleration.mult(0.3);
   }
 
   void checkEdgesWrap() {

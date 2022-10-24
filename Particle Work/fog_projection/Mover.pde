@@ -1,26 +1,19 @@
-class Particle {
+class Mover {
   //declare motion vectors
   PVector position, velocity, acceleration;
   //declare top speed and display size
   float topSpeed, radius, mass;
   float angle, angleVel, angleAcc;
-  int lifeSpan;
-  ArrayList<Trail> trails;
-  color c;
-
 
   //Constructor Function
-  Particle(PVector pIn, PVector vIn, color cIn) {
+  Mover(PVector pIn, PVector vIn) {
     //assign initial values based on parameters passed into constructor
     position = new PVector(pIn.x, pIn.y);
     velocity = new PVector(vIn.x, vIn.y);
     acceleration = new PVector(0, 0);
     topSpeed = 10;
-    radius = 1;
+    radius = 20;
     mass = 1;
-    lifeSpan = 255;
-    c = cIn;
-    trails = new ArrayList<Trail>();
   }
 
   void checkSolid(Solid s) {
@@ -45,15 +38,6 @@ class Particle {
 
   boolean isInFluid(Fluid f) {
     if (position.x > f.x && position.x < f.x+f.w && position.y > f.y && position.y < f.y+f.h) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  //function to check if particle is dead
-  boolean isDead() {
-    if (lifeSpan < 0) {
       return true;
     } else {
       return false;
@@ -86,35 +70,10 @@ class Particle {
   }
 
   void update() {
-    lifeSpan-=3;
-
-    if (lifeSpan%4 == 0) {
-      Trail t = new Trail(position, new PVector (0, 0), c);
-      t.lifeSpan = lifeSpan/2;
-      trails.add(t);
-    }
-    //Removes dead particles
-    for (int i = trails.size()-1; i > -1; i--) {
-      Trail t = trails.get(i);
-      if (t.isDead()) {
-        trails.remove(t);
-      }
-    }
-
-    //use an enhanced for loop to cycle through each particle in the arrayList
-    for (Trail t : trails) {
-      t.applyGravity(gravity);
-      t.update();
-      //p.checkEdgesBounce();
-      t.display();
-    }
-
-    applyDrag(fluid);
-
     angleAcc = acceleration.x/10;
     angleVel += angleAcc;
     angle += angleVel;
-
+    
     //add acceleration to velocity
     velocity.add(acceleration);
     //limit magnitude of velocity 
@@ -122,7 +81,7 @@ class Particle {
     //add velocity to position
     position.add(velocity);
     //reset acceleration to zero
-    acceleration.mult(0.9);
+    acceleration.mult(0);
   }
 
   void checkEdgesWrap() {
@@ -158,7 +117,12 @@ class Particle {
   }
 
   void display() {
-    tint(c, lifeSpan);
-    image(bigLight, position.x, position.y);
+    fill(100);
+    pushMatrix();
+    translate(position.x,position.y);
+    rotate(angle);
+    rectMode(CENTER);
+    rect(0, 0, radius*2, radius*2);
+    popMatrix();
   }
 }

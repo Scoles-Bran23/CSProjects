@@ -13,13 +13,14 @@ void setup() {
   fullScreen();
 
   fluid = new Fluid(0, 0, width, height, 0.01);
-  gravity = new PVector(.03, .003);
+  gravity = new PVector(0.01, .003);
   wind = new PVector(0, 0);
 
   systems = new ArrayList<ParticleSystem>();
   rockets = new ArrayList<Rocket>();
   bigLight = loadImage("whiteLight.png");
-  bigLight.resize(25, 25);
+//  bigLight.resize(25, 25);
+  bigLight.resize(50, 40);
   smallLight = loadImage("whiteLight.png");
   smallLight.resize(8, 8);
   imageMode(CENTER);

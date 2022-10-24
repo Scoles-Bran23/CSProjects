@@ -1,43 +1,36 @@
-class Particle {
+class Vehicle {
   //declare motion vectors
   PVector position, velocity, acceleration;
   //declare top speed and display size
   float topSpeed, radius, mass;
   float angle, angleVel, angleAcc;
-  int lifeSpan;
-  ArrayList<Trail> trails;
-  color c;
-
 
   //Constructor Function
-  Particle(PVector pIn, PVector vIn, color cIn) {
+  Vehicle(PVector pIn, PVector vIn) {
     //assign initial values based on parameters passed into constructor
     position = new PVector(pIn.x, pIn.y);
     velocity = new PVector(vIn.x, vIn.y);
     acceleration = new PVector(0, 0);
     topSpeed = 10;
-    radius = 1;
+    radius = 20;
     mass = 1;
-    lifeSpan = 255;
-    c = cIn;
-    trails = new ArrayList<Trail>();
   }
 
   void checkSolid(Solid s) {
     if (position.x + radius > s.x && position.x - radius < s.x +s.w
-      && position.y + radius + velocity.y > s.y && position.y < s.y) {
+      && position.y + radius + velocity.y > s.y && position.y-radius < s.y+s.h) {
       position.y = s.y-radius;
       velocity.y*=-1;
-    } else if (position.x + radius + velocity.x > s.x && position.x < s.x
+    } else if (position.x + radius + velocity.x > s.x && position.x - radius < s.x +s.w
       && position.y + radius > s.y && position.y-radius < s.y+s.h) {
       position.x = s.x-radius;
       velocity.x*=-1;
-    } else if (position.x > s.x + s.w && position.x - radius + velocity.x < s.x +s.w
+    } else if (position.x + radius > s.x && position.x - radius + velocity.x < s.x +s.w
       && position.y + radius > s.y && position.y-radius < s.y+s.h) {
       position.x = s.x+s.w+radius;
       velocity.x*=-1;
     } else if (position.x + radius > s.x && position.x - radius < s.x +s.w
-      && position.y > s.y + s.h && position.y-radius + velocity.y< s.y+s.h) {
+      && position.y + radius > s.y && position.y-radius + velocity.y< s.y+s.h) {
       position.y=s.y+s.h+radius;
       velocity.y*=-1;
     }
@@ -45,15 +38,6 @@ class Particle {
 
   boolean isInFluid(Fluid f) {
     if (position.x > f.x && position.x < f.x+f.w && position.y > f.y && position.y < f.y+f.h) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  //function to check if particle is dead
-  boolean isDead() {
-    if (lifeSpan < 0) {
       return true;
     } else {
       return false;
@@ -86,43 +70,19 @@ class Particle {
   }
 
   void update() {
-    lifeSpan-=3;
-
-    if (lifeSpan%4 == 0) {
-      Trail t = new Trail(position, new PVector (0, 0), c);
-      t.lifeSpan = lifeSpan/2;
-      trails.add(t);
-    }
-    //Removes dead particles
-    for (int i = trails.size()-1; i > -1; i--) {
-      Trail t = trails.get(i);
-      if (t.isDead()) {
-        trails.remove(t);
-      }
-    }
-
-    //use an enhanced for loop to cycle through each particle in the arrayList
-    for (Trail t : trails) {
-      t.applyGravity(gravity);
-      t.update();
-      //p.checkEdgesBounce();
-      t.display();
-    }
-
-    applyDrag(fluid);
-
-    angleAcc = acceleration.x/10;
+    //angleAcc = acceleration.x/10;
     angleVel += angleAcc;
     angle += angleVel;
 
     //add acceleration to velocity
     velocity.add(acceleration);
+    velocity.mult(0.999);
     //limit magnitude of velocity 
     velocity.limit(topSpeed);
     //add velocity to position
     position.add(velocity);
     //reset acceleration to zero
-    acceleration.mult(0.9);
+    acceleration.mult(0);
   }
 
   void checkEdgesWrap() {
@@ -158,7 +118,37 @@ class Particle {
   }
 
   void display() {
-    tint(c, lifeSpan);
-    image(bigLight, position.x, position.y);
+    fill(0);
+    pushMatrix();
+    translate(position.x, position.y);
+    rotate(angle);
+    rectMode(CENTER);
+    //rect(0, 0, radius*2, radius*2);
+    triangle(0,-radius,radius/2,radius,-radius/2,radius);
+    popMatrix();
+  }
+
+  void vehicleKeyPressed() {
+    if (keyCode == RIGHT) {
+      angleVel = 0.1;
+    } else if (keyCode == LEFT) {
+      angleVel = -0.1;
+    }
+    //if up key is pressed
+    if (keyCode == UP) {
+      //apply a force to the vehicle IN the direction it is facing
+      //create a PVector
+      PVector thrust = new PVector(0,-1);
+      //rotate the PVector to face in same direction as vehicle
+      thrust.rotate(angle);
+      //apply the force vector
+      applyForce(thrust);
+    }
+  }
+
+  void vehicleKeyReleased() {
+    if (keyCode == RIGHT || keyCode == LEFT) {
+      angleVel = 0;
+    }
   }
 }

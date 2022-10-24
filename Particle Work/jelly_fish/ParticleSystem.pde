@@ -8,14 +8,14 @@ class ParticleSystem {
     particles = new ArrayList<Particle>();
     position = new PVector(x, y);
     //c = color(random(255), random(255), random(255));
-    float r = random(0,255);
-    c = color(r, r, r);
+    //float r = random(0,255);
+    c = color(random(0,255), random(0,255), random(0,255));
     
     for (int i = 0; i < 90; i++) {
       //populate the arraylist with particles using a for loop
       PVector v = PVector.random2D();
 //      v.mult(random(3, 4));      
-      v.mult(random(1, 2));
+      v.mult(random(5, 10));
       Particle particle = new Particle(position, v, c);
       particles.add(particle);
     }
