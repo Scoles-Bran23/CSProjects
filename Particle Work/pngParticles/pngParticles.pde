@@ -8,7 +8,7 @@ void setup() {
   systems = new ArrayList <particleSystem>();
   light = loadImage("light.png");
   imageMode(CENTER);
-  light.resize(10,10);
+  light.resize(50,50);
 }
 
 

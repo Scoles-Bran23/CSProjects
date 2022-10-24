@@ -9,18 +9,15 @@ void setup(){
   q = new Particle(pIn);
 
 }
-<<<<<<< HEAD
 
-=======
 //hey katie hows life?
 //hello
->>>>>>> f9eb291cb076297468af15166611ceb3b4a0ea84
 void draw(){
   p.run();
   q.run();
   x+=0.3;
   PVector forceOne = new PVector(noise(x), random(0.1, 0.1));
   p.applyForce(forceOne);
-  PVector forceTwo = new PVector(0.1, 0.1);
+  PVector forceTwo = new PVector(0.2, 0.2);
   q.applyForce(forceTwo);
 }
