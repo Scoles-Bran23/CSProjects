@@ -1,6 +1,5 @@
 Particle p;
 Particle q;
-float x = 0;
 void setup(){
   size(400, 400);
   background(0);
@@ -15,9 +14,7 @@ void setup(){
 void draw(){
   p.run();
   q.run();
-  x+=0.3;
-  PVector forceOne = new PVector(noise(x), random(0.1, 0.1));
-  p.applyForce(forceOne);
+
   PVector forceTwo = new PVector(0.1, 0.1);
   q.applyForce(forceTwo);
 }
