@@ -29,7 +29,7 @@ void draw() {
   for (int i= systems.size()-1; i > -1; i--){
     particleSystem s = systems.get(i);
     //println("size of particles: " + s.particles.size());
-    if(s.particles.size() == 0){
+    if(s.particles.size() == 100){
       systems.remove(s);
     }
   }
