@@ -9,9 +9,15 @@ void setup(){
   q = new Particle(pIn);
 
 }
+<<<<<<< HEAD
 
 //hey katie hows life?
 //hello
+=======
+//hey katie hows life?
+//hello
+//helllo again
+>>>>>>> 556203cfbbc02896bad1df76b170f18c94ade7ea
 void draw(){
   p.run();
   q.run();
