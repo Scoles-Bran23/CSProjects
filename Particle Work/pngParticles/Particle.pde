@@ -18,7 +18,7 @@ class Particle {
     r=red;
     b=blue;
     g=green;
-    lifeSpan=255;
+    lifeSpan=150;
     c = (red+blue+green)/3;
   }
 
@@ -100,6 +100,12 @@ class Particle {
     noStroke();
     //tint(r,b,g,lifeSpan);
     tint(c, lifeSpan);
+    image(light, position.x,position.y);
+  }
+  void colorDisplay() {
+    noStroke();
+    //tint(r,b,g,lifeSpan);
+    tint(r, g, b, lifeSpan);
     image(light, position.x,position.y);
   }
 
