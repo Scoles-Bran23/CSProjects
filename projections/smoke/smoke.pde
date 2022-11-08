@@ -9,6 +9,7 @@ FFT fft;
 int sampleCount = 100;
 int bandCount = 512;
 float[] spectrum = new float[bandCount];
+float t = 255;
 
 void setup() {
   fullScreen();
@@ -25,6 +26,7 @@ void setup() {
   light = loadImage("light.png");
   imageMode(CENTER);
   light.resize(50, 50);
+
 }
 
 
@@ -33,14 +35,22 @@ void draw() {
   //blendMode(BLEND);
   blendMode(ADD);
   background(0);
+
+  println(t);
+    
+
   
-  println(isHardSongBeat());
+  //println(isHardSongBeat());
   //println("number of systems: " + systems.size());
+   
 
   for (particleSystem s : systems) {
+    if(t <= 0){
+       s.run();
+    }
 
-    s.run();
   }
+
 
   for (int i= systems.size()-1; i > -1; i--) {
     particleSystem s = systems.get(i);
@@ -52,20 +62,23 @@ void draw() {
   
   fft.analyze(spectrum);
   float low = getTotalLevel(spectrum, 0, 50);
-  println(low);
-  if (low > 1) {
+  //println(low);
+  if (low > 0.05) {
      particleSystem s = new particleSystem(random(width), random(height), true);
      systems.add(s);
   } 
-  else if (low > 0.5){
+  else if (low > 0.03){
     particleSystem s = new particleSystem(random(width), random(height), false);
     systems.add(s);
   }
   
-
+  noStroke();
+  fill(0, t);
+  rect(0, 0, width, height);
+  
 }
 
-
+/*
 boolean isHardSongBeat() {
   fft.analyze(spectrum);
   float low = getTotalLevel(spectrum, 0, 50);
@@ -75,7 +88,7 @@ boolean isHardSongBeat() {
   } else {
     return false;
   }
-}
+}*/
 
 public float getTotalLevel(float[] data, int begin, int end) {
   if (begin >= end) return 0;
@@ -84,4 +97,8 @@ public float getTotalLevel(float[] data, int begin, int end) {
     total += data[i];
   }
   return total;
+}
+
+void keyPressed(){
+  t-=10;
 }
