@@ -11,6 +11,10 @@ int bandCount = 512;
 float[] spectrum = new float[bandCount];
 float t = 255;
 
+
+float LOW_REACTIVITY_LEVEL = 0.03;
+float HIGH_REACTIVITY_LEVEL = 0.05;
+
 void setup() {
   fullScreen();
   mic = new AudioIn(this, 0);
@@ -63,11 +67,11 @@ void draw() {
   fft.analyze(spectrum);
   float low = getTotalLevel(spectrum, 0, 50);
   //println(low);
-  if (low > 0.05) {
+  if (low > HIGH_REACTIVITY_LEVEL) {
      particleSystem s = new particleSystem(random(width), random(height), true);
      systems.add(s);
   } 
-  else if (low > 0.03){
+  else if (low >LOW_REACTIVITY_LEVEL){
     particleSystem s = new particleSystem(random(width), random(height), false);
     systems.add(s);
   }
