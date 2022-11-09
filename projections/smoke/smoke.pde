@@ -17,6 +17,7 @@ float HIGH_REACTIVITY_LEVEL = 0.05;
 
 void setup() {
   fullScreen();
+  noCursor();
   mic = new AudioIn(this, 0);
   mic.start();
 
