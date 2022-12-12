@@ -23,23 +23,26 @@ function setup() {
 
 function action(){
   if(tracker == 0){
-    greet();
+    decision0();
   }
   else if(tracker == 1){
-    reply();
+    reply0();
   }
   else if(tracker == 2){
     decision1();
   }
   else if(tracker == 3){
-
+    reply1();
   }
   else if(tracker == 4){
 
   }
+  else if(tracker == 5){
+
+  }
 }
 
-function greet() {
+function decision0() {
   const answer = user.value();
   greeting.html('welcome ' + answer + '!');
   user.value('');
@@ -51,7 +54,7 @@ function greet() {
 }
 
 
-function reply() {
+function reply0() {
   clear();
   const answer = user.value();
   greeting.html('score: ' + score);
@@ -59,7 +62,7 @@ function reply() {
   user.value('');
   if(yes(answer)) {
     text("i'm glad. click the button to continue", 50, 200);
-    
+    score+=10;
   }
   else {
     text("too bad. click the button to continue", 50, 200);
@@ -75,6 +78,15 @@ function decision1(){
   greeting.html('score: ' + score);
 
   text("A (yes) or B (no)", 50, 200);
+  
+  tracker = 3;
+
+}
+
+function reply1(){
+  clear();
+  const answer = user.value();
+  greeting.html('score: ' + score);
 
   user.value('');
   if(yes(answer)) {
@@ -87,7 +99,7 @@ function decision1(){
     text("you chose B", 50, 200);
     tracker = 4;
   }
-  
+
 }
 
 function clear(){
