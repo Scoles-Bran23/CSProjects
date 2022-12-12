@@ -59,15 +59,14 @@ function reply() {
   user.value('');
   if(yes(answer)) {
     text("i'm glad. click the button to continue", 50, 200);
-    tracker = 2;
-    return;
+    
   }
   else {
     text("too bad. click the button to continue", 50, 200);
-    tracker = 2;
-    return;
   }
   
+  tracker = 2;
+
 }
 
 function decision1(){
