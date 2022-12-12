@@ -41,7 +41,7 @@ function action(){
 
 function greet() {
   const answer = user.value();
-  greeting.html('welcome ' + answer + '!!');
+  greeting.html('welcome ' + answer + '!');
   user.value('');
 
   text("are you ready?", 50, 200);
@@ -52,7 +52,7 @@ function greet() {
 
 
 function reply() {
-  background(255);
+  clear();
   const answer = user.value();
   greeting.html('score: ' + score);
   
@@ -70,7 +70,7 @@ function reply() {
 }
 
 function decision1(){
-  background(255);
+  clear();
   const answer = user.value();
   greeting.html('score: ' + score);
 
@@ -78,14 +78,20 @@ function decision1(){
 
   user.value('');
   if(yes(answer)) {
+    clear();
     text("you chose A", 50, 200);
     tracker = 3;
   }
   else {
+    clear();
     text("you chose B", 50, 200);
     tracker = 4;
   }
   
+}
+
+function clear(){
+  background(255);
 }
 
 function yes(a){
