@@ -44,7 +44,7 @@ function action(){
 
 function decision0() {
   const answer = user.value();
-  greeting.html('welcome ' + answer + '!');
+  greeting.html('welcome ' + answer + '!!');
   user.value('');
 
   text("are you ready?", 50, 200);
