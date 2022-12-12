@@ -28,6 +28,15 @@ function action(){
   else if(tracker == 1){
     reply();
   }
+  else if(tracker == 2){
+    decision1();
+  }
+  else if(tracker == 3){
+
+  }
+  else if(tracker == 4){
+    
+  }
 }
 
 function greet() {
@@ -54,6 +63,26 @@ function reply() {
   else {
     text("too bad. click the button to continue", 50, 200);
   }
+  tracker = 2;
+}
+
+function decision1(){
+  background(255);
+  const answer = user.value();
+  greeting.html('score: ' + score);
+
+  text("A (yes) or B (no)", 50, 200);
+
+  user.value('');
+  if(yes(answer)) {
+    text("you chose A", 50, 200);
+    tracker = 3;
+  }
+  else {
+    text("you chose B", 50, 200);
+    tracker = 4;
+  }
+  
 }
 
 function yes(a){
