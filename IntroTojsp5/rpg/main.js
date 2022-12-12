@@ -60,10 +60,12 @@ function reply() {
   if(yes(answer)) {
     text("i'm glad. click the button to continue", 50, 200);
     tracker = 2;
+    return;
   }
   else {
     text("too bad. click the button to continue", 50, 200);
     tracker = 2;
+    return;
   }
   
 }
