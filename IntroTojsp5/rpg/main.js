@@ -35,7 +35,7 @@ function action(){
 
   }
   else if(tracker == 4){
-    
+
   }
 }
 
@@ -59,11 +59,13 @@ function reply() {
   user.value('');
   if(yes(answer)) {
     text("i'm glad. click the button to continue", 50, 200);
+    tracker = 2;
   }
   else {
     text("too bad. click the button to continue", 50, 200);
+    tracker = 2;
   }
-  tracker = 2;
+  
 }
 
 function decision1(){
