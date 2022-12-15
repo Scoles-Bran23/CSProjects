@@ -11,7 +11,7 @@ function setup() {
 
   button = createButton('submit');
   button.position(user.x + user.width, 65);
-  button.mousePressed(action);
+  button.mousePressed(stateMap[tracker]());
 
   greeting = createElement('h2', 'welcome. what is your name?');
   greeting.position(20, 5);
@@ -21,6 +21,14 @@ function setup() {
   textSize(30);
 }
 
+const stateMap = {
+  0 : decision0(),
+  1 : reply0(),
+  2 : decision1(),
+  3 : reply()
+}
+
+/*
 function action(){
   if(tracker == 0){
     decision0();
@@ -40,7 +48,7 @@ function action(){
   else if(tracker == 5){
 
   }
-}
+}*/
 
 function decision0() {
   const answer = user.value();
