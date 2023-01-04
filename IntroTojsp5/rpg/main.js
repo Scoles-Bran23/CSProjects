@@ -2,6 +2,14 @@ let user, button, greeting;
 let tracker = 0;
 let score = 0;
 
+const stateMap = {
+  0 : decision0,
+  1 : reply0,
+  2 : decision1,
+  3 : reply1
+};
+
+
 function setup() {
   // create canvas
   createCanvas(710, 400);
@@ -9,24 +17,20 @@ function setup() {
   user = createInput();
   user.position(20, 65);
 
-  button = createButton('submit');
-  button.position(user.x + user.width, 65);
-  button.mousePressed(stateMap[tracker]());
-
   greeting = createElement('h2', 'welcome. what is your name?');
   greeting.position(20, 5);
+
+  button = createButton('submit');
+  button.position(user.x + user.width, 65);
+  button.mousePressed(stateMap[tracker]);
+
+
 
   
   textAlign(LEFT);
   textSize(30);
 }
 
-const stateMap = {
-  0 : decision0(),
-  1 : reply0(),
-  2 : decision1(),
-  3 : reply()
-}
 
 /*
 function action(){
