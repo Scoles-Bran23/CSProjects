@@ -25,7 +25,12 @@ function setup() {
   button = createButton('respond');
   button.style('font-size', '12px');
   button.style('font-family', 'Times New Roman');
-  button.position(user.x + user.width, 65);
+  let col = color('#5cb1ed');
+  button.style('background-color', col);
+  let col2 = color('#cb42f5');
+  button.style('border_hover_color', col2)
+  button.position(user.x+user.width, 65);
+  button.size(100, user.height);
 
   textAlign(LEFT);
   textSize(20);
@@ -44,11 +49,11 @@ function preview() {
   greeting.html('\"nice to meet you, ' + answer + '. i\'m jean\"');
   user.value('');
   let s = "the woman in front of you grins. the smile glances off her eyes and then disappears. your eyes widen as she takes a step forward, but by then it's too late...";
-  storyText(s, 100);
+  storyText(s, 20, 100);
 
   fill(255, 0, 0);
   s = "click button to continue";
-  computerText(s, 20);
+  computerText(s, 20, 250);
 
   tracker = 1;
   
@@ -61,16 +66,16 @@ function bump() {
   greeting.html(time + ":00 AM");
   user.value('');
   let s = "it's still dark outside and the sheets of rain hitting the car feel like a series of personal attacks. there's less traffic than usual and you're thankful. as you cruise down the boulevard alone you feel a slight bump underneath your car.";
-  storyText(s, 100);
+  storyText(s, 20, 100);
   s = "it rubs you the wrong way, but you don't want to be late. it's only your second week, after all. do you pull over and check under the car, or ignore the distraction?";
-  storyText(s, 200);
+  storyText(s, 20, 200);
   s = "type \"1\" to keep driving or \"2\" to satiate your curiosity";
-  computerText(s, 300);
+  computerText(s, 20, 300);
   tracker = 2;
 
 }
 
-function bunpDec() {
+function bumpDec() {
   clear();
   const answer = user.value();
   if(one(answer)){
@@ -149,20 +154,20 @@ function two(a){
   
 }
 
-function computerText(str, h){
+function computerText(str, x, y){
   textFont('Times New Roman')
   textAlign(LEFT);
   textSize(20);
   fill(255, 0, 0);
-  text(str, h, 300, 400, 200);
+  text(str, x, y, 400, 200);
 }
 
-function storyText(str, h){
+function storyText(str, x, y){
   textFont('Times New Roman')
   textAlign(LEFT);
   textSize(20);
   fill(0);
-  text(str, 20, h, 300, 200);
+  text(str, x, y, 300, 200);
 }
 
 
