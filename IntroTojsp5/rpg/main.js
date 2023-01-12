@@ -5,10 +5,10 @@ let risk = 5;
 let name = "";
 
 const stateMap = {
-  0 : preview,
-  1 : bump,
-  2 : bumpDec,
-  3 : reply1
+  0 : {draw: preview, input: previewDec},
+  1 : {draw: bump, input: bumpDec},
+  2 : {draw: ignore, input : ignoreDec},
+  3 : {draw: look, input: lookDec}
 };
 
 
@@ -28,20 +28,23 @@ function setup() {
   let col = color('#5cb1ed');
   button.style('background-color', col);
   let col2 = color('#cb42f5');
-  button.style('border_hover_color', col2)
   button.position(user.x+user.width, 65);
   button.size(100, user.height);
 
   textAlign(LEFT);
   textSize(20);
   fill(0);
+
+  button.mousePressed(handleInput);
 }
 
 function draw(){
-  button.mousePressed(stateMap[tracker]);
+  stateMap[tracker].draw();
 }
 
-
+function handleInput(){
+  stateMap[tracker].input()
+}
 
 function preview() {
   const answer = user.value();
@@ -54,60 +57,60 @@ function preview() {
   fill(255, 0, 0);
   s = "click button to continue";
   computerText(s, 20, 250);
+}
 
+function previewDec(){
   tracker = 1;
-  
 }
 
 
 function bump() {
   clear();
-  const answer = user.value();
   greeting.html(time + ":00 AM");
-  user.value('');
   let s = "it's still dark outside and the sheets of rain hitting the car feel like a series of personal attacks. there's less traffic than usual and you're thankful. as you cruise down the boulevard alone you feel a slight bump underneath your car.";
   storyText(s, 20, 100);
   s = "it rubs you the wrong way, but you don't want to be late. it's only your second week, after all. do you pull over and check under the car, or ignore the distraction?";
-  storyText(s, 20, 200);
+  storyText(s, 20, 300);
   s = "type \"1\" to keep driving or \"2\" to satiate your curiosity";
-  computerText(s, 20, 300);
-  tracker = 2;
+  computerText(s, 20, 450);
 
 }
 
+//a (one) b (two)
 function bumpDec() {
   clear();
   const answer = user.value();
   if(one(answer)){
-    risk--;
     clear();
-    tracker = 3;
+    tracker = 2;
   }
   else if(two(answer)){
     risk++;
     clear();
-    tracker = 4;
+    tracker = 3;
   }
+}
+
+function ignore(){
+  clear();
+  risk--;
+  let s = "you ignore";
+  storyText(s, 20, 100);
+}
+
+function ignoreDec(){
 
 }
 
-function reply1(){
+function look(){
   clear();
-  const answer = user.value();
-  greeting.html('score: ' + score);
+  risk++;
+  let s = "you look";
+  storyText(s, 20, 100);
+}
 
-  user.value('');
-  if(yes(answer)) {
-    clear();
-    text("you chose A", 50, 200);
-    tracker = 3;
-  }
-  else {
-    clear();
-    text("you chose B", 50, 200);
-    tracker = 4;
-  }
-
+function lookDec(){
+  
 }
 
 function clear(){
