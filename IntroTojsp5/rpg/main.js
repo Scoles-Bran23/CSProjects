@@ -5,10 +5,11 @@ let risk = 5;
 let name = "";
 
 const stateMap = {
-  0 : {draw: preview, input: previewDec},
-  1 : {draw: bump, input: bumpDec},
-  2 : {draw: ignore, input : ignoreDec},
-  3 : {draw: look, input: lookDec}
+  0 : {draw: intro, input: introDec},
+  1 : {draw: preview, input: previewDec},
+  2 : {draw: bump, input: bumpDec},
+  3 : {draw: ignore, input : ignoreDec},
+  4 : {draw: look, input: lookDec}
 };
 
 
@@ -19,7 +20,8 @@ function setup() {
   user = createInput();
   user.position(20, 65);
 
-  greeting = createElement('h2', '\"hey, what\'s your name?\"');
+  //greeting = createElement('h2', '\"hey, what\'s your name?\"');
+  greeting = createElement('h2', "");
   greeting.position(20, 5);
 
   button = createButton('respond');
@@ -46,10 +48,17 @@ function handleInput(){
   stateMap[tracker].input()
 }
 
-function preview() {
+function intro(){
+  greeting.html('\"hey, what\'s your name?\"');
   const answer = user.value();
   name = answer;
-  greeting.html('\"nice to meet you, ' + answer + '. i\'m jean\"');
+}
+function introDec(){
+  tracker = 1;
+}
+
+function preview() {
+  greeting.html('\"nice to meet you, ' + name + '. i\'m jean\"');
   user.value('');
   let s = "the woman in front of you grins. the smile glances off her eyes and then disappears. your eyes widen as she takes a step forward, but by then it's too late...";
   storyText(s, 20, 100);
@@ -60,7 +69,7 @@ function preview() {
 }
 
 function previewDec(){
-  tracker = 1;
+  tracker = 2;
 }
 
 
@@ -82,12 +91,11 @@ function bumpDec() {
   const answer = user.value();
   if(one(answer)){
     clear();
-    tracker = 2;
+    tracker = 3;
   }
   else if(two(answer)){
-    risk++;
     clear();
-    tracker = 3;
+    tracker = 4;
   }
 }
 
@@ -110,7 +118,7 @@ function look(){
 }
 
 function lookDec(){
-  
+
 }
 
 function clear(){
