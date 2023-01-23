@@ -147,6 +147,7 @@ function look2(){
 }
 
 function look2Dec(){
+  const answer = user.value();
   clear();
   if(one(answer)){
     //picture
@@ -161,14 +162,21 @@ function look2Dec(){
 
 function picture() {
   clear();
-  let s = "sweat dripping down your face, you angle your phone above the crackling mass of eggs. your phone slips from your hand";
+  let s = "sweat dripping down your face, you angle your phone above the crackling mass of eggs. your phone slips from your hand.";
   storyText(s, 20, 100);
-  s = "not the new phone! a potential new species is not enough to block you from rescuing your prized possession";
+  s = "\"not the new phone!\" a potential new species is apparently not enough to block you from rescuing your prized possession.";
   storyText(s, 20, 200);
-  s = "you decide to carefully hunt through the black and red gooey egg shells for your phone";
+  s = "you decide to carefully hunt through the black and red gooey egg shells for your phone.";
   storyText(s, 20, 300);
-  s = "you lift ONE egg, TWO eggs, THREE eggs...and that's when everything changes";
-  storyText(s, 20, 100);
+  s = "you lift ONE egg,";
+  specialStoryText(s, 20, 400);
+  s = "TWO eggs,";
+  specialStoryText(s, 20, 450);
+  s = "THREE eggs...";
+  specialStoryText(s, 20, 500);
+  s = "and that's when everything changes";
+  storyText(s, 20, 550);
+
 }
 
 function pictureDec() {
@@ -247,6 +255,14 @@ function storyText(str, x, y){
   textAlign(LEFT);
   textSize(20);
   fill(0);
+  text(str, x, y, 300, 200);
+}
+
+function specialStoryText(str, x, y){
+  textFont('Times New Roman')
+  textAlign(LEFT);
+  textSize(20);
+  fill(250, 7, 7);
   text(str, x, y, 300, 200);
 }
 
