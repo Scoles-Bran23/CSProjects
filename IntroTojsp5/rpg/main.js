@@ -1,15 +1,19 @@
 let user, button, greeting;
 let tracker = 0;
 let time = 6;
-let risk = 5;
+let risk = 0;
 let name = "";
 
 const stateMap = {
   0 : {draw: intro, input: introDec},
   1 : {draw: preview, input: previewDec},
   2 : {draw: bump, input: bumpDec},
-  3 : {draw: ignore, input : ignoreDec},
-  4 : {draw: look, input: lookDec}
+  3 : {draw: ignore, input: ignoreDec},
+  4 : {draw: look1, input: look1Dec},
+  5 : {draw: look2, input: look2Dec},
+  6 : {draw: picture, input: pictureDec},
+  7 : {draw: back, input: backDec},
+  8 : {draw: zombification, input: zombieDec}
 };
 
 
@@ -24,10 +28,10 @@ function setup() {
   greeting = createElement('h2', "");
   greeting.position(20, 5);
 
-  button = createButton('respond');
+  button = createButton('');
   button.style('font-size', '12px');
   button.style('font-family', 'Times New Roman');
-  let col = color('#5cb1ed');
+  let col = color('#F6BE00');
   button.style('background-color', col);
   let col2 = color('#cb42f5');
   button.position(user.x+user.width, 65);
@@ -49,7 +53,10 @@ function handleInput(){
 }
 
 function intro(){
+  clear();
   greeting.html('\"hey, what\'s your name?\"');
+  let s = "press the button once you've responded";
+  computerText(s, 20, 100);
   const answer = user.value();
   name = answer;
 }
@@ -58,6 +65,7 @@ function introDec(){
 }
 
 function preview() {
+  clear();
   greeting.html('\"nice to meet you, ' + name + '. i\'m jean\"');
   user.value('');
   let s = "the woman in front of you grins. the smile glances off her eyes and then disappears. your eyes widen as she takes a step forward, but by then it's too late...";
@@ -78,7 +86,7 @@ function bump() {
   greeting.html(time + ":00 AM");
   let s = "it's still dark outside and the sheets of rain hitting the car feel like a series of personal attacks. there's less traffic than usual and you're thankful. as you cruise down the boulevard alone you feel a slight bump underneath your car.";
   storyText(s, 20, 100);
-  s = "it rubs you the wrong way, but you don't want to be late. it's only your second week, after all. do you pull over and check under the car, or ignore the distraction?";
+  s = "it rubs you the wrong way, but you don't want to be late. it's only your second week at the lab, after all. do you pull over and check under the car, or ignore the distraction?";
   storyText(s, 20, 300);
   s = "type \"1\" to keep driving or \"2\" to satiate your curiosity";
   computerText(s, 20, 450);
@@ -101,7 +109,6 @@ function bumpDec() {
 
 function ignore(){
   clear();
-  risk--;
   let s = "you ignore";
   storyText(s, 20, 100);
 }
@@ -110,14 +117,76 @@ function ignoreDec(){
 
 }
 
-function look(){
+function look1(){
   clear();
   risk++;
-  let s = "you look";
+  let s = "you pull over and gingerly open the door, squinting at the object on the side of the street.";
+  storyText(s, 20, 100);
+  s = "it's something small, unidentifiable. you take a step closer and gasp. in front of you is a scrambled monstrosity...";
+  storyText(s, 20, 200);
+  s = "press the button to continue";
+  computerText(s, 20, 350);
+}
+
+function look1Dec(){
+  tracker = 5;
+}
+
+function look2(){
+  clear();
+  let s = "...the bloody yolk oozed over the slick surface of the shiny black egg. the egg cracked, and curiously, resulted in three more eggs.";
+  storyText(s, 20, 100);
+  s = "before you can blink, half of the road is filled with bloodied, ebony egg shells.";
+  storyText(s, 20, 200);
+  s = "your experiences as a scientist, nay, a HUMAN, tell you that what is happening should be impossible.";
+  storyText(s, 20, 300);
+  s = "do you take a picture of the disaster to save evidence of your experience, or do you walk back to the car, vowing to forget what you have seen...forever?";
+  storyText(s, 20, 400);
+  s = "type \"1\" to take a picture for posterity, or \"2\" to ignore this fascinating scientific marvel";
+  computerText(s, 20, 550);
+}
+
+function look2Dec(){
+  clear();
+  if(one(answer)){
+    //picture
+    risk++;
+    tracker = 6;
+  }
+  else if(two(answer)){
+    //ignore
+    tracker = 7;
+  }
+}
+
+function picture() {
+  clear();
+  let s = "sweat dripping down your face, you angle your phone above the crackling mass of eggs. your phone slips from your hand";
+  storyText(s, 20, 100);
+  s = "not the new phone! a potential new species is not enough to block you from rescuing your prized possession";
+  storyText(s, 20, 200);
+  s = "you decide to carefully hunt through the black and red gooey egg shells for your phone";
+  storyText(s, 20, 300);
+  s = "you lift ONE egg, TWO eggs, THREE eggs...and that's when everything changes";
   storyText(s, 20, 100);
 }
 
-function lookDec(){
+function pictureDec() {
+  tracker = 8;
+}
+
+function back() {
+  // body...
+}
+
+function backDec() {
+  // body...
+}
+
+function zombification(){
+
+}
+function zombieDec(){
 
 }
 
@@ -169,7 +238,7 @@ function computerText(str, x, y){
   textFont('Times New Roman')
   textAlign(LEFT);
   textSize(20);
-  fill(255, 0, 0);
+  fill(7, 112, 7);
   text(str, x, y, 400, 200);
 }
 
