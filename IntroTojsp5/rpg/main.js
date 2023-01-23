@@ -184,11 +184,11 @@ function pictureDec() {
 }
 
 function back() {
-  // body...
+  
 }
 
 function backDec() {
-  // body...
+  
 }
 
 function zombification(){
